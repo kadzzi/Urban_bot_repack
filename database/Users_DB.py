@@ -3,7 +3,7 @@ import sqlite3
 FILE_DB = 'database/bot_DB.db'
 
 
-def initiate_db():
+def initiate_db(file_path=FILE_DB):
     connection_ = sqlite3.connect(FILE_DB)
     cursor_ = connection_.cursor()
 
@@ -21,8 +21,8 @@ def initiate_db():
     connection_.close()
 
 
-def is_included(username):
-    connection_ = sqlite3.connect(FILE_DB)
+def is_included(username, file_path=FILE_DB):
+    connection_ = sqlite3.connect(file_path)
     cursor_ = connection_.cursor()
 
     cursor_.execute(f"SELECT Count(*) FROM Users WHERE username = '{username}'")
@@ -34,8 +34,8 @@ def is_included(username):
     return result
 
 
-def add_user(username, email, age):
-    connection_ = sqlite3.connect(FILE_DB)
+def add_user(username, email, age, file_path=FILE_DB):
+    connection_ = sqlite3.connect(file_path)
     cursor_ = connection_.cursor()
 
     cursor_.execute("INSERT INTO Users(username, email, age, balance) VALUES(?, ?, ?, ?)",
@@ -45,10 +45,13 @@ def add_user(username, email, age):
     connection_.close()
 
 
-if __name__ == "__main__":
-    initiate_db()
+initiate_db()
 
-    # connection = sqlite3.connect(FILE_DB)
+
+if __name__ == "__main__":
+    initiate_db('bot_DB.db')
+
+    # connection = sqlite3.connect('bot_DB.db')
     # cursor = connection.cursor()
     #
     # cursor.execute("INSERT INTO Users(username, email, age, balance) VALUES(?, ?, ?, ?)",

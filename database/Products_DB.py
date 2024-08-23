@@ -3,8 +3,8 @@ import sqlite3
 FILE_DB = 'database/bot_DB.db'
 
 
-def initiate_db():
-    connection_ = sqlite3.connect(FILE_DB)
+def initiate_db(file_path=FILE_DB):
+    connection_ = sqlite3.connect(file_path)
     cursor_ = connection_.cursor()
 
     cursor_.execute('''
@@ -20,8 +20,8 @@ def initiate_db():
     connection_.close()
 
 
-def get_all_products():
-    connection_ = sqlite3.connect(FILE_DB)
+def get_all_products(file_path=FILE_DB):
+    connection_ = sqlite3.connect(file_path)
     cursor_ = connection_.cursor()
 
     cursor_.execute("SELECT title, description, price from Products")
@@ -34,9 +34,9 @@ def get_all_products():
 
 
 if __name__ == "__main__":
-    initiate_db()
+    initiate_db('bot_DB.db')
 
-    connection = sqlite3.connect(FILE_DB)
+    connection = sqlite3.connect('bot_DB.db')
     cursor = connection.cursor()
 
     cursor.execute("INSERT INTO Products(title, description, price) VALUES(?, ?, ?)",
@@ -51,5 +51,5 @@ if __name__ == "__main__":
     connection.commit()
     connection.close()
 
-    product_list = get_all_products()
+    product_list = get_all_products('bot_DB.db')
     print(product_list)
