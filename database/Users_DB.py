@@ -4,7 +4,7 @@ FILE_DB = 'database/bot_DB.db'
 
 
 def initiate_db(file_path=FILE_DB):
-    connection_ = sqlite3.connect(FILE_DB)
+    connection_ = sqlite3.connect(file_path)
     cursor_ = connection_.cursor()
 
     cursor_.execute('''
